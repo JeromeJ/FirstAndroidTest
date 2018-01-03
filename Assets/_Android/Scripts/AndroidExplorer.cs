@@ -21,6 +21,8 @@ public class AndroidExplorer : MonoBehaviour
     protected void Awake()
     {
         Input.gyro.enabled = true;
+
+        Input.location.Start();
     }
 
     //public void GetTouchCoụnt
@@ -51,8 +53,13 @@ public class AndroidExplorer : MonoBehaviour
 
         debug.text += "\n";
 
-        debug.text += "Longitutde: " + Input.location.lastData.longitude+ "\n";
-        debug.text += "Latitude: " + Input.location.lastData.latitude + "\n";
+        if (Input.location.status == LocationServiceStatus.Running)
+        {
+            debug.text += "Longitutde: " + Input.location.lastData.longitude + "\n";
+            debug.text += "Latitude: " + Input.location.lastData.latitude + "\n";
+        }
+        else
+            debug.text += "LocationService not running rn.\n";
 
         // Android asset toolkit (not free)
         // Android + profiler + wifi = happiness
